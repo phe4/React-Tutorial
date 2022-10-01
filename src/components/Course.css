@@ -1,0 +1,19 @@
+.card.card-body {
+    width: 15vw;
+}
+
+.card.card-body.card-title{
+    width: 100%;
+}
+
+.card .card-body .card-text{
+    height: 7vw;
+}
+
+.card .card-footer {
+    background-color: white;
+}
+
+.card .card-footer .footer-text{
+    margin: 0%;
+}

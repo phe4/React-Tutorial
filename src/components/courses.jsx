@@ -1,9 +1,10 @@
 import CourseInfo from "./courseInfo";
+import "./courses.css";
 
 const CourseInformations = ({ courses }) => {
     return (
         <div className="courses">
-            {Object.values(courses).map((course) => (<CourseInfo course={course} />))}
+            {Object.entries(courses).map(([id, course]) => (<CourseInfo course={course} key={id}/>))}
         </div>
     );
 };

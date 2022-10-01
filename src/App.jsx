@@ -1,5 +1,7 @@
 import './App.css';
 import CourseInformations from './components/courses';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const schedule = {
   "title": "CS Courses for 2022-2023",
@@ -33,7 +35,7 @@ const schedule = {
 
 const App = () => {
   return (
-  <div>
+  <div className="container">
     <h1>{schedule.title}</h1>
     <CourseInformations courses={schedule.courses} />
   </div>

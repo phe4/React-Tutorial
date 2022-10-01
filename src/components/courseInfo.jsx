@@ -1,8 +1,15 @@
-const CourseInfo = ({ course }) => {
+import "./Course.css";
+
+const CourseInfo = ({course }) => {
     return (
-        <div className="course-info">
-            <span>{course.term} CS{course.number}: {course.title}</span> <br />
-            <span>{course.meets}</span>
+        <div className="card m-1 p-2" >
+            <div className="card-body">
+                <h5 className="card-title">{course.term} CS{course.number}</h5>
+                <p className="card-text">{course.title}</p>
+            </div>
+            <div className="card-footer">
+                <p className="footer-text">{course.meets}</p>
+            </div>
         </div>
     );
 };
