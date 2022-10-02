@@ -1,19 +1,28 @@
-.card.card-body {
+.course.card-body {
     width: 15vw;
 }
 
-.card.card-body.card-title{
+.course.card-body.card-title{
     width: 100%;
 }
 
-.card .card-body .card-text{
+.course .card-body .card-text{
     height: 5vw;
 }
 
-.card .card-footer {
-    background-color: white;
+.course .card-footer {
+    background-color: inherit;
 }
 
-.card .card-footer .footer-text{
+.course .card-footer .footer-text{
     margin: 0%;
+}
+
+.selected {
+    background-color: #e1bee7;
+    color: black;
+}
+
+.course:hover{
+    cursor: pointer;
 }
