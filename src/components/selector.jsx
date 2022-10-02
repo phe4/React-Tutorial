@@ -1,6 +1,3 @@
-// import CourseInformations from './courses';
-// import { useState } from "react";
-
 const terms = {
     "Fall": "Fall",
     "Winter": "Winter",
@@ -19,7 +16,7 @@ const TermRadioButton = ({term, selectedTerm, setSelectedTerm}) =>(
 
 
 const TermSelector = ({selectedTerm, setSelectedTerm}) => (
-    <div className="btn-group"> 
+    <div className="btn-group" role="group"> 
         { Object.keys(terms).map(term => <TermRadioButton key={term} term={term} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm}/>) }
     </div>
 );
