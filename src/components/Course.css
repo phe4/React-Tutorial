@@ -27,3 +27,8 @@
 .course:hover{
     cursor: pointer;
 }
+
+.to-disable{
+    background-color: LightGray;
+    cursor: not-allowed !important;
+}
