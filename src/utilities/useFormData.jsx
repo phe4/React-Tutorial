@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-export const useFormData = (validator = null, values = {}) => {
+export const useFormData = (validator = {}, values = {}) => {
   const [state, setState] = useState(() => ({ values }));
 
   const change = (evt) => {
     const { id, value } = evt.target;
     const error = validator ? validator(id, value) : '';
+    console.log(id, value);
     evt.target.setCustomValidity(error);
     
     const values = {...state.values, [id]: value};

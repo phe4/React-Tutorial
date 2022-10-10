@@ -1,12 +1,19 @@
 import { useFormData } from "./utilities/useFormData";
 import { useNavigate } from "react-router-dom";
 
-const validateUserData = (key, val) => {
+const validateCourseData = (key, val) => {
   switch (key) {
     case 'title':
-      return val.length > 0 ? '' : 'Title is required';
+      console.log("title");
+      return val.length > 1 ? '' : 'Title must be at least 2 characters';
     case 'meets':
-      return val.length > 0 ? '' : 'Meeting times are required';
+      // must contain days and start-end, e.g., MWF 12:00-13:20
+      if (val === '') return '';
+      else{
+        var message = 'Must contain days and start-end, e.g., MWF 12:00-13:20'
+        return /^(M|Tu|W|Th|F)(M|Tu|W|Th|F)?(M|Tu|W|Th|F)? (([01]?[0-9]|2[0-3]):[0-5][0-9])-(([01]?[0-9]|2[0-3]):[0-5][0-9])$/.test(val) ? '' : message;
+      }
+      
     default: return '';
   }
 };
@@ -35,15 +42,16 @@ const ButtonBar = ({disabled}) => {
 
 const CourseEditor = ({courseId, courseTitle, courseMeets}) => {
 //   const [update, result] = useDbUpdate(`/users/${user.id}`);
-  const [state, change] = useFormData(validateUserData, courseId);
+  const [state, change] = useFormData(validateCourseData, courseId);
   const submit = (evt) => {
+    evt.preventDefault();
   };
 
   return (
     <div className="container">
         <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-        <InputField name="title" text="Title" title={courseId} hint={courseTitle} state={state} change={change} />
-        <InputField name="meets" text="Meeting Times" title={courseId} hint={courseMeets} state={state} change={change} />
+        <InputField name="title" text="Title" id={courseId} title="title" hint={courseTitle} state={state} change={change} />
+        <InputField name="meets" text="Meeting Times" id={courseId} title="meets" hint={courseMeets} state={state} change={change} />
         <ButtonBar />
         </form>
     </div>
