@@ -1,9 +1,11 @@
 import { useJsonQuery } from '../utilities/fetch';
 import TermPage from './termPage';
+import { useDbData } from '../utilities/firebase';
 
 const Main = () => {
-    const [ data, isLoading, error ] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
-    if (isLoading) return <div>Loading...</div>;
+    const [courses, isLoading, err] = useJsonQuery('https://courses.cs.northwestern.edu/394/data/cs-courses.php');
+    const [ data, error ] = useDbData('/');
+    if (data == undefined) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     if(!data) return <div>No data</div>;
     return (<div className="container">
