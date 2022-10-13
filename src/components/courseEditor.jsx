@@ -1,5 +1,7 @@
-import { useFormData } from "./utilities/useFormData";
+import { useFormData } from "../utilities/useFormData";
 import { useNavigate } from "react-router-dom";
+import { useDbUpdate } from "../utilities/firebase";
+import { useEffect } from "react";
 
 const validateCourseData = (key, val) => {
   switch (key) {
@@ -21,30 +23,34 @@ const validateCourseData = (key, val) => {
 const InputField = ({title, hint, text, state, change}) => (
   <div className="mb-3">
     <label htmlFor={title} className="form-label">{text}</label>
-    {/* <input className="form-control" id={title} name={title} 
-      defaultValue={state.values?.[title]} onChange={change} /> */}
     <input className="form-control" id={title} name={title} 
       defaultValue={hint} onChange={change} />
     <div className="invalid-feedback">{state.errors?.[title]}</div>
   </div>
 );
 
-const ButtonBar = ({disabled}) => {
+const ButtonBar = ({message, disabled}) => {
   const navigate = useNavigate();
+  const goback = (time) =>setTimeout(() => {
+        navigate('/');
+      }, time*1000);
   return (
     <div className="d-flex">
       <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate(-1)}>Cancel</button>
-      <button type="submit" className="btn btn-primary me-auto" disabled={disabled}>Submit</button>
-      {/* <span className="p-2">{message}</span> */}
+      <button type="submit" className="btn btn-primary me-auto" disabled={disabled} onClick={() => goback(1)}>Submit</button>
+      <span className="p-2">{message}</span>
     </div>
   );
 };
 
 const CourseEditor = ({courseId, courseTitle, courseMeets}) => {
-//   const [update, result] = useDbUpdate(`/users/${user.id}`);
-  const [state, change] = useFormData(validateCourseData, courseId);
+  const [update, result] = useDbUpdate(`courses/${courseId}`);
+  const [state, change] = useFormData(validateCourseData, {courseId});
   const submit = (evt) => {
     evt.preventDefault();
+    if (!state.errors) {
+      update(state.values);
+    }
   };
 
   return (
@@ -52,7 +58,7 @@ const CourseEditor = ({courseId, courseTitle, courseMeets}) => {
         <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
         <InputField name="title" text="Title" id={courseId} title="title" hint={courseTitle} state={state} change={change} />
         <InputField name="meets" text="Meeting Times" id={courseId} title="meets" hint={courseMeets} state={state} change={change} />
-        <ButtonBar />
+        <ButtonBar message={result?.message}/>
         </form>
     </div>
   )

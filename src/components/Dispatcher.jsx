@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useParams, useLocation } from 'react-router-dom';
 import Main from './Main';
-import CourseEditor from '../courseEditor';
+import CourseEditor from './courseEditor';
 
 const CourseFormForUrl = () => {
   const { id } = useParams();

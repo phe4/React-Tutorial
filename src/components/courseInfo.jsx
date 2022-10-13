@@ -19,5 +19,3 @@ const CourseInfo = ({id, course, selectedCourses, toggleSelectedCourse, isConfli
 };
 
 export default CourseInfo;
-
-// () => toggleSelectedCourse(id)
