@@ -11,7 +11,7 @@ const terms = {
 }
 
 
-const TermPage = ({courses}) => {
+const TermPage = ({courses, user}) => {
     const [selectedTerm, setSelectedTerm] = useState(() => Object.keys(terms)[0]);
 
     const [selectedCourses, setSelectedCourses] = useState([]);
@@ -25,6 +25,7 @@ const TermPage = ({courses}) => {
             selectedCourses.includes(course) ? selectedCourses.filter(c => c !== course) : [...selectedCourses, course]
         );
     }
+    const displayEdit = user ? true : false;
 
     return (
         <div>
@@ -38,7 +39,8 @@ const TermPage = ({courses}) => {
             <CourseInformations 
                 courses={Object.entries(courses).filter(([id, course]) => course.term === selectedTerm)} 
                 selectedCourses={selectedCourses}
-                toggleSelectedCourse={toggleSelectedCourse}    
+                toggleSelectedCourse={toggleSelectedCourse}
+                displayEdit={displayEdit}    
             />
         </div>
     );

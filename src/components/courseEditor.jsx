@@ -1,7 +1,6 @@
 import { useFormData } from "../utilities/useFormData";
 import { useNavigate } from "react-router-dom";
 import { useDbUpdate } from "../utilities/firebase";
-import { useEffect } from "react";
 
 const validateCourseData = (key, val) => {
   switch (key) {

@@ -3,7 +3,7 @@ import "./courses.css";
 import timeSpliter from "../utilities/timeSpliter";
 import checkTimeConflict from "../utilities/checkTimeConflict";
 
-const CourseInformations = ({ courses, selectedCourses, toggleSelectedCourse}) => {
+const CourseInformations = ({ courses, selectedCourses, toggleSelectedCourse, displayEdit}) => {
     const timeListSplited = timeSpliter(courses, selectedCourses);
     return (
         <div className="courses">
@@ -17,6 +17,7 @@ const CourseInformations = ({ courses, selectedCourses, toggleSelectedCourse}) =
                             selectedCourses={selectedCourses} 
                             toggleSelectedCourse={toggleSelectedCourse}
                             isConflict = {isTimeConflict}
+                            displayEdit={displayEdit}
                             />
                 )
             })}
