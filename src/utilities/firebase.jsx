@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { useCallback, useEffect, useState } from 'react';
 import { getDatabase, ref, update, onValue } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import {toast} from 'react-toastify';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCvrwGW6PF4pMuFxQdERmys9jKbjAzVFvE",
@@ -52,7 +53,22 @@ export const signInWithGoogle = () => {
     signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
   };
   
-const firebaseSignOut = () => signOut(getAuth(firebase));
+const firebaseSignOut = () => {
+  signOut(getAuth(firebase));
+  toast.warn("You've been logged out!", {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+  setTimeout(function(){
+      window.location.reload();
+   }, 3000);
+};
 
 export { firebaseSignOut as signOut };
 
@@ -62,6 +78,5 @@ export const useAuthState = () => {
     useEffect(() => (
         onAuthStateChanged(getAuth(firebase), setUser)
     ));
-
     return [user];
 };

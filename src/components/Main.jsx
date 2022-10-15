@@ -1,6 +1,8 @@
 import TermPage from './termPage';
 import { useDbData } from '../utilities/firebase';
-import { signInWithGoogle, signOut, useAuthState } from '../utilities/firebase';
+import { signInWithGoogle, signOut } from '../utilities/firebase';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const SignInButton = () => (
@@ -12,18 +14,19 @@ const SignOutButton = () => (
 );
 
 
-const Main = () => {
-    const [ data, error ] = useDbData('/');
-    const [userState] = useAuthState();
-    if (data == undefined) return <div>Loading...</div>;
+const Main = (profile) => {
+    const [ courses, error ] = useDbData('/courses');
+    const [ title, tError ] = useDbData('/title');
+    if (courses == undefined) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    if(!data) return <div>No data</div>;
+    if(!courses) return <div>No data</div>;
     return (<div className="container">
         <div className="d-flex py-2">
-            <h1>{ data.title }</h1>
-            {userState ? <SignOutButton /> : <SignInButton />}
+            <h1>{ title }</h1>
+            {profile.user.user ? <SignOutButton /> : <SignInButton />}
+            <ToastContainer />
         </div>
-        <TermPage courses={data.courses} user={userState}/>
+        <TermPage courses={courses} user={profile.user}/>
         </div>
     );
 };

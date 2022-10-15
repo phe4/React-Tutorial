@@ -44,7 +44,7 @@ const ButtonBar = ({message, disabled}) => {
 
 const CourseEditor = ({courseId, courseTitle, courseMeets}) => {
   const [update, result] = useDbUpdate(`courses/${courseId}`);
-  const [state, change] = useFormData(validateCourseData, {courseId});
+  const [state, change] = useFormData(validateCourseData, {});
   const submit = (evt) => {
     evt.preventDefault();
     if (!state.errors) {
