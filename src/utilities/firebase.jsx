@@ -1,10 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import { useCallback, useEffect, useState } from 'react';
-import { getDatabase, ref, update, onValue } from 'firebase/database';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase, ref, update, onValue, connectDatabaseEmulator  } from 'firebase/database';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, connectAuthEmulator, signInWithCredential } from 'firebase/auth';
 import {toast} from 'react-toastify';
 
-const firebaseConfig = {
+let firebaseConfig = {
     apiKey: "AIzaSyCvrwGW6PF4pMuFxQdERmys9jKbjAzVFvE",
     authDomain: "react-tutorial-b8696.firebaseapp.com",
     databaseURL: "https://react-tutorial-b8696-default-rtdb.firebaseio.com",
@@ -14,8 +14,24 @@ const firebaseConfig = {
     appId: "1:985432175420:web:55dc67b0cd11c0af296439",
 };
 
+if (import.meta.env.VITE_EMULATE){
+  firebaseConfig.databaseURL = "http://localhost:9000?ns=react-tutorial-b8696";
+}
+
 const firebase = initializeApp(firebaseConfig);
 const database  = getDatabase(firebase);
+
+if (!window.EMULATION && import.meta.env.VITE_EMULATE) {
+  const authLocal = getAuth(firebase);
+  connectAuthEmulator(authLocal, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+  signInWithCredential(authLocal, GoogleAuthProvider.credential(
+    '{"sub": "OEOPuejWxnFfHX19P85QkQg7PeRe", "email": "hxxp0204@gmail.com", "displayName":"PingHe", "email_verified": true}'
+  ));
+  
+  window.EMULATION = true;
+}
 
 export const useDbData = (path) => {
     const [data, setData] = useState();
