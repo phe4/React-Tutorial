@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 const CourseInfo = ({id, course, selectedCourses, toggleSelectedCourse, isConflict, displayEdit}) => {
     return (
-        <div className={`course card m-1 p-2 ${selectedCourses.includes(id)? 'selected':''}${isConflict? 'to-disable':''}`} onClick={() =>isConflict?undefined:toggleSelectedCourse(id)}>
+        <div className={`course card m-1 p-2 ${selectedCourses.includes(id)? 'selected':''}${isConflict? 'to-disable':''}`} 
+            data-cy="course"
+            onClick={() =>isConflict?undefined:toggleSelectedCourse(id)}>
             <div className={`card-body `}>
                 <div className="d-flex">
                     <h5 className="card-title">{course.term} CS{course.number}</h5>
